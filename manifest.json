@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "id": "icung.guitar-tuner",
+  "name": "Guitar Tuner",
+  "version": "1.0.0",
+  "author": "icung",
+  "license": "MIT",
+  "description": "Live guitar tuner in the bar: listens to the mic, detects the played string, and shows how many cents off you are.",
+  "kinds": ["bar-widget"],
+  "entryPoints": {
+    "barWidget": "Widget.qml"
+  },
+  "barWidget": {
+    "displayName": "Guitar Tuner",
+    "description": "Plucks are detected from the microphone and matched to the nearest string. Green = in tune, yellow = close, red = off. Right-click for settings.",
+    "category": "Music",
+    "allowMultiple": false,
+    "defaultSection": "right",
+    "defaults": {
+      "tuning": "standard",
+      "ref": 440.0,
+      "threshold": 5,
+      "sensitivity": 0.5,
+      "capo": 0,
+      "autoListen": false,
+      "autoStop": false,
+      "autoStopSeconds": 15,
+      "displayMode": "icon"
+    },
+    "schema": [
+      {
+        "key": "tuning",
+        "type": "string",
+        "label": "Tuning preset",
+        "defaultValue": "standard",
+        "options": ["standard", "drop-d", "drop-c", "half-step", "open-g"],
+        "description": "String tuning for matching. Half-step = Eb tuning, open-g = D G D G B D."
+      },
+      {
+        "key": "ref",
+        "type": "number",
+        "label": "Reference pitch (A4)",
+        "min": 420,
+        "max": 460,
+        "step": 1,
+        "defaultValue": 440.0,
+        "description": "Concert pitch in Hz. 442 for orchestras, 432 for some vintage setups."
+      },
+      {
+        "key": "threshold",
+        "type": "number",
+        "label": "In-tune threshold",
+        "min": 2,
+        "max": 10,
+        "step": 1,
+        "defaultValue": 5,
+        "description": "Cents within which a string counts as perfectly in tune (green)."
+      },
+      {
+        "key": "sensitivity",
+        "type": "number",
+        "label": "Mic sensitivity",
+        "min": 0,
+        "max": 1,
+        "step": 0.05,
+        "defaultValue": 0.5,
+        "description": "Higher = detects quieter plucks but may pick up background hum."
+      },
+      {
+        "key": "capo",
+        "type": "number",
+        "label": "Capo fret",
+        "min": 0,
+        "max": 11,
+        "step": 1,
+        "defaultValue": 0,
+        "description": "Shift all string targets up by this many semitones (as if a capo sat on that fret)."
+      },
+      {
+        "key": "autoListen",
+        "type": "boolean",
+        "label": "Auto-listen on panel open",
+        "defaultValue": false,
+        "description": "Start listening automatically when the settings panel opens."
+      },
+      {
+        "key": "autoStop",
+        "type": "boolean",
+        "label": "Auto-stop after silence",
+        "defaultValue": false,
+        "description": "Stop listening after a period without a pluck. Saves battery and closes the mic."
+      },
+      {
+        "key": "autoStopSeconds",
+        "type": "number",
+        "label": "Auto-stop delay",
+        "min": 5,
+        "max": 60,
+        "step": 5,
+        "defaultValue": 15,
+        "description": "Seconds of silence before auto-stop kicks in."
+      },
+      {
+        "key": "displayMode",
+        "type": "string",
+        "label": "Display mode",
+        "defaultValue": "icon",
+        "options": ["icon", "icon-text"],
+        "description": "Icon only keeps the bar compact; icon-text also shows the note and cents."
+      }
+    ]
+  }
+}
